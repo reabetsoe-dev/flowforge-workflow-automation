@@ -22,7 +22,9 @@ from app.api import (
 )
 from app.core.config import get_settings
 from app.core.database import SessionLocal, init_db
+from app.models.execution import WorkflowInstance
 from app.models.user import User
+from app.models.workflow import Workflow
 from app.seed.seed_data import seed_demo_data
 
 
@@ -34,7 +36,9 @@ def seed_demo_data_if_empty() -> None:
     db = SessionLocal()
     try:
         user_count = db.scalar(select(func.count(User.id))) or 0
-        if user_count == 0:
+        workflow_count = db.scalar(select(func.count(Workflow.id))) or 0
+        instance_count = db.scalar(select(func.count(WorkflowInstance.id))) or 0
+        if user_count == 0 or workflow_count == 0 or instance_count < 22:
             seed_demo_data(db, include_demo_activity=True)
     finally:
         db.close()

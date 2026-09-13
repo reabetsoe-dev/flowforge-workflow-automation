@@ -872,6 +872,7 @@ def seed_demo_data(db: Session, include_demo_activity: bool = True) -> None:
     seed_users(db, departments)
     db.flush()
     seed_workflows(db)
+    db.flush()
     if include_demo_activity:
         seed_demo_audit_baseline(db)
         seed_demo_instances(db)
