@@ -1,0 +1,29 @@
+# Python
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+backend/flowforge.db
+backend/test_flowforge.db
+backend/venv/
+backend/.venv/
+
+# Node
+frontend/node_modules/
+frontend/dist/
+frontend/.vite/
+frontend/coverage/
+frontend/*.tsbuildinfo
+
+# Environment
+.env
+.env.local
+*.local
+
+# Editors and OS
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
