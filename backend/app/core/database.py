@@ -11,7 +11,7 @@ LOCAL_SQLITE_PREFIXES = ("sqlite://", "sqlite:///")
 
 
 def build_database_url() -> str:
-    configured_url = settings.database_url.strip()
+    configured_url = settings.database_url.strip() or "sqlite:///./flowforge.db"
     if settings.turso_database_url and (
         not configured_url
         or configured_url == "sqlite:///./flowforge.db"
@@ -26,6 +26,9 @@ def build_database_url() -> str:
     if configured_url.startswith("libsql://"):
         separator = "&" if "?" in configured_url else "?"
         return f"sqlite+{configured_url}{separator}secure=true"
+
+    if settings.running_on_vercel and configured_url == "sqlite:///./flowforge.db":
+        return "sqlite:////tmp/flowforge.db"
 
     return configured_url
 

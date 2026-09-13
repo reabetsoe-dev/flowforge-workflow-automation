@@ -8,6 +8,7 @@ class Settings(BaseSettings):
     database_url: str = "sqlite:///./flowforge.db"
     turso_database_url: str | None = None
     turso_auth_token: str | None = None
+    vercel: str | None = None
     jwt_secret_key: str = "replace-with-secure-secret"
     jwt_algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
@@ -29,6 +30,10 @@ class Settings(BaseSettings):
             if origin.strip()
         )
         return list(dict.fromkeys(origins))
+
+    @property
+    def running_on_vercel(self) -> bool:
+        return self.vercel == "1"
 
 
 @lru_cache
